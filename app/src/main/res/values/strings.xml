@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">correntometro</string>
+    <string name="save_date_button">Guardar datos</string>
+    <string name="history_button">Historial</string>
+    <string name="connect_button">Conectar</string>
+    <string name="data_pulse_text_view">Mostrar datos de pulsos</string>
+    <string name="data_velocity_text_view">Mostrar datos de velocidad</string>
+</resources>
