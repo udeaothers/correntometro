@@ -16,10 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
 
         mainBinding.btnBluetooth.setOnClickListener {
-            intent = Intent(this,BluetoohActivity::class.java)
+            intent = Intent(this, BluetoothActivity::class.java)
             startActivity(intent)
         }
-
 
 
     }
