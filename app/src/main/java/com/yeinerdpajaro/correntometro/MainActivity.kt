@@ -52,7 +52,32 @@ class MainActivity : AppCompatActivity() {
         m_address = intent.getStringExtra(BluetoothActivity.EXTRA_ADDRESS).toString()
         ConnectToDevice(this).execute()
 
+
+        //recibe los datos que llegan
+        receiveData()
+
+
     }
+
+    private fun receiveData(): String? {
+
+
+        if (m_bluetoothSocket != null) {
+            try {
+                val inputStream = m_bluetoothSocket!!.inputStream
+                val buffer = ByteArray(1024)
+                val bytesRead = inputStream.read(buffer)
+                val receivedData = buffer.copyOfRange(0, bytesRead)
+                Toast.makeText(this, "Dato recibido: "+ String(receivedData), Toast.LENGTH_SHORT).show()
+                return String(receivedData)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
+
+
 
 
      fun conected_state(){
