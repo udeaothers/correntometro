@@ -177,6 +177,7 @@
                 <Button
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/BtnHistorial"
                     android:layout_marginStart="50dp"
                     android:backgroundTint="@color/green_inicio"
                     android:text="@string/history_button"
@@ -188,6 +189,7 @@
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="70dp"
+                    android:id="@+id/BtnGuardarDatos"
                     android:backgroundTint="@color/green_inicio"
                     android:text="@string/save_date_button"
                     android:textColor="@color/white">
@@ -214,12 +216,12 @@
 
 
                 <Button
-                    android:id="@+id/btnBluetooth"
-                    android:layout_width="120dp"
+                    android:id="@+id/btnDesconectar"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="150dp"
+                    android:layout_marginStart="130dp"
                     android:backgroundTint="@color/green_inicio"
-                    android:text="@string/connect_button"
+                    android:text="@string/desconnect_button"
                     android:textColor="@color/white">
 
                 </Button>

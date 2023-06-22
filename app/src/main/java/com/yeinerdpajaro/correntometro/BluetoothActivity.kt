@@ -46,9 +46,7 @@ class BluetoothActivity : AppCompatActivity() {
         if (!bluetoothAdapter!!.isEnabled){
             val enableBluetoothIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BLUETOOTH)
-        }
-
-        if(BluetoothActivity !== null){
+        }else{
             pairedDeviceList()
         }
 
@@ -78,7 +76,7 @@ class BluetoothActivity : AppCompatActivity() {
             val deviceInfo: String = deviceListAdapter.getItem(position) as String
             val address = deviceInfo.substringAfterLast("\n")
 
-            val intent = Intent(this, ControlActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(EXTRA_ADDRESS, address)
             startActivity(intent)
         }
@@ -93,6 +91,7 @@ class BluetoothActivity : AppCompatActivity() {
             if(resultCode == RESULT_OK){
                 if(bluetoothAdapter!!.isEnabled){
                     Toast.makeText(this, "Bluetooth ha sido conectado", Toast.LENGTH_SHORT).show()
+                    pairedDeviceList()
                 }else{
                     Toast.makeText(this , "Bluetooth ha sido desconectado", Toast.LENGTH_SHORT).show()
                 }
