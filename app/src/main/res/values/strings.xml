@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">correntometro</string>
-    <string name="save_date_button">Guardar datos</string>
+    <string name="save_date_button">Iniciar Lectura</string>
     <string name="history_button">Historial</string>
     <string name="desconnect_button">Desconectar</string>
     <string name="data_pulse_text_view">Mostrar datos de pulsos</string>

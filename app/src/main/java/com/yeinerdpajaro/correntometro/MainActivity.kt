@@ -16,6 +16,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.yeinerdpajaro.correntometro.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.w3c.dom.Text
 import java.io.IOException
 
 
@@ -44,8 +50,14 @@ class MainActivity : AppCompatActivity() {
         val BtnGuardarDatos = findViewById<Button>(R.id.BtnGuardarDatos)
 
 
+
+
         BtnDesconectar.setOnClickListener{
             disconnect()
+        }
+
+        BtnGuardarDatos.setOnClickListener{
+            receiveDataAsync()
         }
 
 
@@ -54,21 +66,20 @@ class MainActivity : AppCompatActivity() {
 
 
         //recibe los datos que llegan
-        receiveData()
+        //receiveData()
 
 
     }
 
     private fun receiveData(): String? {
 
-
         if (m_bluetoothSocket != null) {
             try {
                 val inputStream = m_bluetoothSocket!!.inputStream
-                val buffer = ByteArray(1024)
+                val buffer = ByteArray(256)
                 val bytesRead = inputStream.read(buffer)
                 val receivedData = buffer.copyOfRange(0, bytesRead)
-                Toast.makeText(this, "Dato recibido: "+ String(receivedData), Toast.LENGTH_SHORT).show()
+
                 return String(receivedData)
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -77,10 +88,62 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
+    private fun receiveDataAsync() {
+        val textVelocidad = findViewById<TextView>(R.id.Textvelocidad)
+
+
+        if (m_bluetoothSocket != null) {
+            val inputStream = m_bluetoothSocket!!.inputStream
+            val textCaudal = findViewById<TextView>(R.id.Textcaudal)
+            val textPulsos = findViewById<TextView>(R.id.textPulsos)
+
+            // Utilizar una corutina para la lectura asíncrona
+            CoroutineScope(Dispatchers.IO).launch {
+                val buffer = ByteArray(256)
+                while (isActive) {
+                    try {
+                        val bytesRead = inputStream.read(buffer)
+                        val receivedData = buffer.copyOfRange(0, bytesRead)
+
+                        // Actualizar la interfaz de usuario en el hilo principal
+                        withContext(Dispatchers.Main) {
+                            val data = String(receivedData)
+                            val dataArray = data.split(",")
+
+                            // Verificar que hay al menos tres datos separados por comas
+                            if (dataArray.size >= 3) {
+                                val dato1 = dataArray[0]    //Pulso
+                                val dato2 = dataArray[1]    //velocidad
+                                val dato3 = dataArray[2]    //Caudal
+
+                                // Actualizar la interfaz de usuario en el hilo principal
+                                withContext(Dispatchers.Main) {
+                                    // Utilizar los datos extraídos como desees
+
+                                    textPulsos.text = dato1
+                                    textVelocidad.text = dato2
+                                    textCaudal.text = dato3
+                                }
+                            }
+
+                            //textVelocidad.text = data
+                            //Toast.makeText("Dato recibido", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this, "Dato recibido: $data", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        break
+                    }
+                }
+            }
+        }
+    }
 
 
 
-     fun conected_state(){
+
+
+    fun conected_state(){
         val color = ContextCompat.getColor(this, R.color.green_up)
         val text = findViewById<TextView>(R.id.texEstado)
 

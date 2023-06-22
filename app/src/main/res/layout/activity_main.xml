@@ -66,13 +66,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/velocidad"
+                    android:id="@+id/Textvelocidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/data_velocity_text_view"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <!-- Pulsos -->
@@ -103,13 +103,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/data_pulse_layout_text_view"
+                    android:id="@+id/textPulsos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/data_pulse_text_view"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="25sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -150,13 +150,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/caudal"
+                    android:id="@+id/Textcaudal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mostrar dato caudal"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:textSize="25sp" />
             </LinearLayout>
 
         </LinearLayout>
