@@ -9,6 +9,7 @@ import android.os.Bundle
 import java.util.*
 import android.bluetooth.BluetoothSocket
 import android.content.Intent
+import android.os.Environment
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
@@ -22,9 +23,15 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.w3c.dom.Text
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
 import java.io.IOException
 
 
+
+//val bufferedWriter = null
+private var shouldSaveData = true // Bandera para controlar si se deben guardar los datos o no
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var m_bluetoothAdapter: BluetoothAdapter
         var m_isConnected: Boolean = false
         lateinit var m_address: String
+        val fileWriter  = null
     }
 
 
@@ -50,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         val BtnGuardarDatos = findViewById<Button>(R.id.BtnGuardarDatos)
 
 
+        m_address = intent.getStringExtra(BluetoothActivity.EXTRA_ADDRESS).toString()
+        ConnectToDevice(this).execute()
 
 
         BtnDesconectar.setOnClickListener{
@@ -60,34 +70,9 @@ class MainActivity : AppCompatActivity() {
             receiveDataAsync()
         }
 
-
-        m_address = intent.getStringExtra(BluetoothActivity.EXTRA_ADDRESS).toString()
-        ConnectToDevice(this).execute()
-
-
-        //recibe los datos que llegan
-        //receiveData()
-
-
     }
 
-    private fun receiveData(): String? {
-
-        if (m_bluetoothSocket != null) {
-            try {
-                val inputStream = m_bluetoothSocket!!.inputStream
-                val buffer = ByteArray(256)
-                val bytesRead = inputStream.read(buffer)
-                val receivedData = buffer.copyOfRange(0, bytesRead)
-
-                return String(receivedData)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-        return null
-    }
-
+    /*Permite la recepción de datos de forma sincronica*/
     private fun receiveDataAsync() {
         val textVelocidad = findViewById<TextView>(R.id.Textvelocidad)
 
@@ -109,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                         withContext(Dispatchers.Main) {
                             val data = String(receivedData)
                             val dataArray = data.split(",")
+                            save_data_csv(data)
 
                             // Verificar que hay al menos tres datos separados por comas
                             if (dataArray.size >= 3) {
@@ -140,10 +126,51 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun save_data_csv(buffer: String) {
+        if (!shouldSaveData) return // Verificar si se deben guardar los datos
+        val DatosGuardados = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + "datos_guardados.csv"
+        val file = File(DatosGuardados)
+        val isNewFile = !file.exists()
+
+        val fileWriter = FileWriter(file, true)
+        val bufferedWriter = BufferedWriter(fileWriter)
+
+        if (isNewFile) {
+            // Agregar nombres de columnas solo si el archivo es nuevo
+            val columnNames = "Pulsos (p/seg) , Velocidad (m/seg) , Caudal (m³/seg)" // Reemplaza con los nombres de tus columnas
+            bufferedWriter.write(columnNames)
+            bufferedWriter.newLine()
+        }
+
+        bufferedWriter.write(buffer) // Agregar contenido de los datos
+        bufferedWriter.close()
+    }
+
+
+    /*  private fun save_data_cvs(buffer: String) {
+          if (!shouldSaveData) return // Verificar si se deben guardar los datos
+          val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+          val baseFileName = "datos_guardados.csv"
+          var fileName = baseFileName
+          var fileNumber = 1
+
+          while (File(directory, fileName).exists()) {
+              fileName = "${baseFileName}_$fileNumber.csv"
+              fileNumber++
+          }
+
+          val file = File(directory, fileName)
+          val fileWriter = FileWriter(file, true)
+          val bufferedWriter = BufferedWriter(fileWriter)
+          bufferedWriter.write(buffer)
+          bufferedWriter.close()
+      }*/
 
 
 
-    fun conected_state(){
+
+
+    private fun conected_state(){
         val color = ContextCompat.getColor(this, R.color.green_up)
         val text = findViewById<TextView>(R.id.texEstado)
 
@@ -152,16 +179,17 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Texto Conectado", Toast.LENGTH_SHORT).show()
 
-        //mainBinding.texEstado.setText("Conectado")
-        //mainBinding.texEstado.setTextColor(color)
     }
 
-    private fun disconnect() {
+
+    /*Funcion que me permite desconectar del bluetooth*/
+     fun disconnect() {
         if (m_bluetoothSocket != null) {
             try {
                 m_bluetoothSocket!!.close()
                 m_bluetoothSocket = null
                 m_isConnected = false
+                shouldSaveData = false // Establecer la bandera en falso para dejar de guardar los datos
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -169,6 +197,7 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
+    /*Permite la conexion de dispositivo por bluetooth */
     public class ConnectToDevice(c: Context) : AsyncTask<Void, Void, String>() {
         private var connectSuccess: Boolean = true
         private val context: Context

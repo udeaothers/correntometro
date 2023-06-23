@@ -59,7 +59,7 @@
                     android:id="@+id/titulo1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Velocidad m/s"
+                    android:text="Velocidad (m/s)"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -67,12 +67,13 @@
 
                 <TextView
                     android:id="@+id/Textvelocidad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/data_velocity_text_view"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <!-- Pulsos -->
@@ -96,7 +97,7 @@
                     android:id="@+id/titulo2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pulsos"
+                    android:text="Pulsos (P/seg)"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -104,12 +105,13 @@
 
                 <TextView
                     android:id="@+id/textPulsos"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/data_pulse_text_view"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -143,7 +145,7 @@
                     android:id="@+id/titulo3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Caudal"
+                    android:text="Caudal (m³/seg)"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -153,10 +155,11 @@
                     android:id="@+id/Textcaudal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mostrar dato caudal"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
         </LinearLayout>
