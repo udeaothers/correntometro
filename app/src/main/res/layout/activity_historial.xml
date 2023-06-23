@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+    
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation = "horizontal"
+            android:padding = "6dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:id = "@+id/layout_pulso"
+                android:layout_alignParentTop = "true"
+                android:layout_marginStart = "30dp"
+                android:layout_marginTop = "2dp"
+                android:orientation="vertical"
+                android:layout_marginLeft = "4dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                     android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:text = "Pulsos"
+                    android:textSize = "24sp"
+                    android:textColor = "@color/black"
+                    android:textStyle = "bold"/>
+
+                <TextView
+                    android:id="@+id/text_pulso_show"
+                    android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:textAlignment="center"
+                    android:text = "0"
+                    android:textSize = "24sp"
+                    android:textStyle = "bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id = "@+id/layout_velocidad"
+                android:animateLayoutChanges="true"
+                android:layout_alignParentTop = "true"
+                android:layout_marginStart = "30dp"
+                android:layout_marginTop = "2dp"
+                android:layout_toEndOf = "@+id/layout_pulso"
+                android:orientation="vertical"
+                android:layout_marginLeft = "4dp">
+
+                <TextView
+                    android:id="@+id/textViewVelocidad"
+                    android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:text = "Velocidad"
+                    android:textSize = "24sp"
+                    android:textColor = "@color/black"
+                    android:textStyle = "bold"/>
+
+                <TextView
+                    android:id="@+id/text_velocidad_show"
+                    android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:textAlignment="center"
+                    android:text = "0"
+                    android:textSize = "24sp"
+                    android:textStyle = "bold"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id = "@+id/layout_caudal"
+                android:animateLayoutChanges="true"
+                android:layout_alignParentTop = "true"
+                android:layout_marginStart = "30dp"
+                android:layout_marginTop = "2dp"
+                android:layout_toEndOf = "@+id/layout_velocidad"
+                android:orientation="vertical"
+                android:layout_marginLeft = "4dp">
+
+                <TextView
+                    android:id="@+id/textViewCaudal"
+                    android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:text = "Caudal"
+                    android:textSize = "24sp"
+                    android:textColor = "@color/black"
+                    android:textStyle = "bold"/>
+
+                <TextView
+                    android:id="@+id/text_caudal_show"
+                    android:layout_height="wrap_content"
+                    android:layout_width = "match_parent"
+                    android:layout_marginBottom = "2dp"
+                    android:textAlignment="center"
+                    android:text = "0"
+                    android:textSize = "24sp"
+                    android:textStyle = "bold"/>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
+

@@ -22,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -68,6 +67,10 @@ class MainActivity : AppCompatActivity() {
 
         BtnGuardarDatos.setOnClickListener{
             receiveDataAsync()
+        }
+        BtnHistorial.setOnClickListener{
+            val intent = Intent(this, DatesHistorical::class.java)
+            startActivity(intent)
         }
 
     }
@@ -146,30 +149,7 @@ class MainActivity : AppCompatActivity() {
         bufferedWriter.close()
     }
 
-
-    /*  private fun save_data_cvs(buffer: String) {
-          if (!shouldSaveData) return // Verificar si se deben guardar los datos
-          val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-          val baseFileName = "datos_guardados.csv"
-          var fileName = baseFileName
-          var fileNumber = 1
-
-          while (File(directory, fileName).exists()) {
-              fileName = "${baseFileName}_$fileNumber.csv"
-              fileNumber++
-          }
-
-          val file = File(directory, fileName)
-          val fileWriter = FileWriter(file, true)
-          val bufferedWriter = BufferedWriter(fileWriter)
-          bufferedWriter.write(buffer)
-          bufferedWriter.close()
-      }*/
-
-
-
-
-
+    /*Permite realizar el cambio del estado a conectado para mostrar al usuario*/
     private fun conected_state(){
         val color = ContextCompat.getColor(this, R.color.green_up)
         val text = findViewById<TextView>(R.id.texEstado)
