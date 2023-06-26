@@ -11,7 +11,11 @@ import android.bluetooth.BluetoothSocket
 import android.content.Intent
 import android.os.Environment
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -73,7 +77,33 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Inicializar el spinner del menú
+        var menuSpinner = findViewById(R.id.menu_spinner) as Spinner
+        val adapter = ArrayAdapter.createFromResource(this, R.array.menu_items, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        menuSpinner.adapter = adapter
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.about_item -> {
+                // Realizar las acciones cuando se seleccione "Acerca de"
+                // Por ejemplo, mostrar un diálogo o abrir una nueva actividad
+                val intent = Intent(this, Acerca_de::class.java)
+                startActivity(intent)
+
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
 
     /*Permite la recepción de datos de forma sincronica*/
     private fun receiveDataAsync() {
